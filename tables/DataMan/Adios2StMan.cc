@@ -454,6 +454,7 @@ void Adios2StMan::impl::create64(rownr_t  aNrRows)
     itsRows = aNrRows;
     itsAdiosEngine = std::make_shared<adios2::Engine>(
         itsAdiosIO->Open(fileName() + ".bp", adios2::Mode::Write));
+    itsAdiosEngine->BeginStep();
     for (uInt i = 0; i < ncolumn(); ++i)
     {
         itsColumnPtrBlk[i]->create(itsAdiosEngine, 'w');
@@ -466,6 +467,7 @@ rownr_t Adios2StMan::impl::open64(rownr_t aNrRows, AipsIO &ios)
     itsRows = aNrRows;
     itsAdiosEngine = std::make_shared<adios2::Engine>(
         itsAdiosIO->Open(fileName() + ".bp", adios2::Mode::Read));
+    itsAdiosEngine->BeginStep();
     for (uInt i = 0; i < ncolumn(); ++i)
     {
         itsColumnPtrBlk[i]->create(itsAdiosEngine, 'r');
